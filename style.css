@@ -1,0 +1,12 @@
+.board {
+  display: grid;
+  width: min-content;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.cell {
+  width: 100px;
+  margin: 2px;
+  aspect-ratio: 1 / 1;
+  outline: 4px solid black;
+}
