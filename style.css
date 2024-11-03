@@ -5,8 +5,12 @@
 }
 
 .cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100px;
-  margin: 2px;
   aspect-ratio: 1 / 1;
+  margin: 2px;
+  font-size: 3rem;
   outline: 4px solid black;
 }

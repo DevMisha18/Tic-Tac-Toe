@@ -28,14 +28,59 @@ TicTacToe.prototype.displayEmptyBoard = function() {
 }
 
 TicTacToe.prototype.logic = function() {
-  const click = () => {
+  const click = (event) => {
+    if (event.target.textContent !== "") return;
     const move = this.turn ? "X" : "O";
     this.turn = !this.turn;
-    cell.textContent = move;
+    event.target.textContent = move;
+    this.checkResult();
   }
   for (cell of this.board) {
     cell.addEventListener("click", click)
   }
+}
+
+TicTacToe.prototype.checkResult = function() {
+  let winner;
+
+  // Define all winning combinations
+  const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5], // Horizontal
+    [6, 7, 8], 
+
+    [0, 3, 6],
+    [1, 4, 7], // Vertical
+    [2, 5, 8], 
+
+    [0, 4, 8], // Diagonal
+    [2, 4, 6]  
+  ];
+
+  // Loop through each winning combination
+  for (const combination of winningCombinations) {
+    const moves = this.getCellValues(combination);
+    if (moves !== -1 && moves.every(cell => cell && cell === moves[0])) {
+      winner = moves[0];
+      break;
+    }
+  }
+
+  if (winner) {
+    console.log("Winner:", winner);
+    return winner;
+  } else {
+    console.log("No winner yet.");
+  }
+}
+
+TicTacToe.prototype.getCellValues = function(cellNums) {
+  const arrCellNums = [];
+  for (const cellNum of cellNums) {
+    if (isNaN(+cellNum) || (+cellNum < 0  || +cellNum > 8)) { return -1; }
+    arrCellNums.push(this.board[cellNum].textContent);
+  }
+  return arrCellNums;
 }
 
 TicTacToe.prototype.clearBoard = function() {
@@ -48,3 +93,4 @@ TicTacToe.prototype.clearBoard = function() {
 const ttt = new TicTacToe();
 ttt.setBoard();
 ttt.displayEmptyBoard();
+ttt.logic();
