@@ -98,9 +98,11 @@ ttt.displayEmptyBoard();
 ttt.logic();
 
 
-const playAgainButton = document.querySelector(".window__button");
-playAgainButton.addEventListener("click", () => {
-  const popup = document.querySelector(".result-window");
-  ttt.clearBoard();
-  popup.classList.remove("show");
-})
+// IIFE
+(function() {const playAgainButton = document.querySelector(".window__button");
+  playAgainButton.addEventListener("click", () => {
+    const popup = document.querySelector(".result-window");
+    ttt.clearBoard();
+    popup.classList.remove("show");
+  })
+})();
