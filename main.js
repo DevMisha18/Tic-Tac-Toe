@@ -67,11 +67,12 @@ TicTacToe.prototype.checkResult = function() {
   }
 
   if (winner) {
-    console.log("Winner:", winner);
-    return winner;
-  } else {
-    console.log("No winner yet.");
-  }
+    const title = document.querySelector(".window__title");
+    title.innerText = `${winner} won!`;
+
+    const popup = document.querySelector(".result-window");
+    popup.classList.add("show");
+  } 
 }
 
 TicTacToe.prototype.getCellValues = function(cellNums) {
@@ -84,6 +85,7 @@ TicTacToe.prototype.getCellValues = function(cellNums) {
 }
 
 TicTacToe.prototype.clearBoard = function() {
+  this.turn = 1;
   for (cell of this.board) {
     cell.textContent = "";
   }
@@ -94,3 +96,11 @@ const ttt = new TicTacToe();
 ttt.setBoard();
 ttt.displayEmptyBoard();
 ttt.logic();
+
+
+const playAgainButton = document.querySelector(".window__button");
+playAgainButton.addEventListener("click", () => {
+  const popup = document.querySelector(".result-window");
+  ttt.clearBoard();
+  popup.classList.remove("show");
+})
